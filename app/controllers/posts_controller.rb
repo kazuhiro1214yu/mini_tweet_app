@@ -24,8 +24,11 @@ class PostsController < ApplicationController
   def update
     @post = Post.find(params[:id])
     @post.content = params[:content]
-    @post.save
-    redirect_to posts_index_url
+    if @post.save
+      redirect_to posts_index_url
+    else
+      redirect_to edit_post_url @post
+    end
   end
 
   def destroy
